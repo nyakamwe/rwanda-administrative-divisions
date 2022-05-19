@@ -1,0 +1,33 @@
+{
+  "name": "rwanda-administrative-divisions",
+  "version": "1.0.0",
+  "description": "API used for listing all the province, district, sectors, and cells. All data came from [National Institute of Statistics Rwanda (web).](https://www.statistics.gov.rw/) This API includes the total population for each sectors etc. and other information.",
+  "main": "app.js",
+  "scripts": {
+    "build": "babel src -d dist --copy-files",
+    "start_dev": "npm run build && nodemon dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyakamwe/rwanda-administrative-divisions.git"
+  },
+  "author": "nyakamwe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyakamwe/rwanda-administrative-divisions/issues"
+  },
+  "homepage": "https://github.com/nyakamwe/rwanda-administrative-divisions#readme",
+  "dependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.19.1",
+    "sequelize-cli": "^6.4.1"
+  }
+}
