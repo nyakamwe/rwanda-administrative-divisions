@@ -1,3 +1,4 @@
+import { provinceExist } from '../helpers/exists'
 import {Province} from '../models'
 
 // add new province
@@ -5,6 +6,12 @@ const addProvince = async(req, res)=>{
     const {name, governor, total_district} = req.body
 
     try {
+        // checking if sector exist or not
+        const exist = await provinceExist(name)
+        if(exist){
+            return res.status(400).json({message:"Province already exists in this country"})
+        }
+        
         const province= await Province.create({name, governor, total_district})
         if(province){
             return res.status(201).json({success:true,status:200,province:province})

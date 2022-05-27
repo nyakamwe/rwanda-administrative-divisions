@@ -1,3 +1,4 @@
+import { districtExist } from '../helpers/exists'
 import {Province, District} from '../models'
 
 
@@ -19,9 +20,14 @@ const getAllDistricts = async(req, res)=>{
 // add new district
 const addDistrict = async(req, res)=>{
     const {name, mayor, total_sectors, provinceUuid} = req.body
-
+    const province= await Province.findOne({where:{uuid:provinceUuid}})
     try {
-        const province= await Province.findOne({where:{uuid:provinceUuid}})
+        
+        // checking if district exist or not
+        const exist = await districtExist(name, province.id)
+        if(exist){
+            return res.status(400).json({message:"District already exists in this province"})
+        }
         if(province){
             const district = await District.create({name, mayor, total_sectors, provinceId:province.id})
             return res.status(201).json({success:true,status:200,district})
@@ -38,7 +44,7 @@ const getSingleDistrict = async(req, res)=>{
     try {
         const {districtUuid} = req.params
 
-        const district = await District.findOne({where:{uuid:districtUuid}, include:['province']})
+        const district = await District.findOne({where:{uuid:districtUuid}, include:['province','sectors']})
         if(district){
             return res.status(200).json({success:true, status:200, district})
         }else{
@@ -57,7 +63,7 @@ const editDistrict = async(req, res)=>{
     const {districtUuid} = req.params
 
     const district = await District.findOne({where:{uuid:districtUuid}})
-    if(district || province){
+    if(district){
         district.name = name || district.name
         district.mayor = mayor || district.mayor
         district.total_sectors = total_sectors || district.total_sectors

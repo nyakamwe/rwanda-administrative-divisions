@@ -3,23 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class District extends Model {
+  class Sector extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
-     */ 
-    static associate({Province, Sector}) {
+     */
+    static associate({District}) {
       // define association here
-      this.belongsTo(Province, {foreignKey: 'provinceId', as:'province'})
-      this.hasMany(Sector, {foreignKey: 'districtId', as:'sectors'})
+      this.belongsTo(District, {foreignKey:'districtId', as:'district'})
     }
-    // override toJSON method
     toJSON(){
-      return {...this.get(), id:undefined, provinceId:undefined}
+      return {...this.get(), id:undefined, districtId:undefined}
     }
   }
-  District.init({
+  Sector.init({
     uuid:{
       type:DataTypes.UUID,
       defaultValue:DataTypes.UUIDV4
@@ -28,18 +26,16 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     },
-    mayor: {
+    executive: {
       type:DataTypes.STRING,
-      allowNull:false
     },
-    total_sectors:{
-      type: DataTypes.INTEGER,
-      allowNull:false
-    },
+    population: {
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
-    tableName: 'districts',
-    modelName: 'District',
+    tableName: 'sectors',
+    modelName: 'Sector',
   });
-  return District;
+  return Sector;
 };
