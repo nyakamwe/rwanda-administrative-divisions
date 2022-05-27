@@ -6,6 +6,8 @@
   "scripts": {
     "build": "babel src -d dist --copy-files",
     "start_dev": "npm run build && nodemon dist/app.js",
+    "undomigrate":"npx sequelize db:migrate:undo",
+    "dbmigrate":"npx sequelize db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
