@@ -7,7 +7,7 @@ const getAllDistricts = async(req, res)=>{
     try {
         const districts = await District.findAll({include:['province']})
         if(districts){
-            return res.status(200).json({success:true, status:200, districts})
+            return res.status(200).json({success:true, status:200, count:districts.length, districts})
         }
         return res.status(404).json({success:false, msg:"districts not found!"})
 
@@ -26,7 +26,7 @@ const addDistrict = async(req, res)=>{
         // checking if district exist or not
         const exist = await districtExist(name, province.id)
         if(exist){
-            return res.status(400).json({message:"District already exists in this province"})
+            return res.status(400).json({message:`District ${name} already exists in ${province.name} province`})
         }
         if(province){
             const district = await District.create({name, mayor, total_sectors, provinceId:province.id})
