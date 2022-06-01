@@ -4,7 +4,7 @@ import {getAllDistricts, addDistrict, getSingleDistrict, editDistrict} from '../
 const router = express.Router()
 
 router.get('/districts', getAllDistricts)
-router.post('/districts', addDistrict)
+router.post('/district', addDistrict)
 router.get('/districts/:districtUuid', getSingleDistrict)
 router.put('/districts/:districtUuid', editDistrict)
 

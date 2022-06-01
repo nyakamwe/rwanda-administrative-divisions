@@ -16,12 +16,14 @@ const getAllSectors = async(req, res)=>{
 const addSector = async(req, res)=>{
     const {name, executive, population, districtUuid} = req.body
     const district= await District.findOne({where:{uuid:districtUuid}})
+    console.log(district.id)
     try {
 
         // checking if sector exist or not
         const exist = await sectorExist(name, district.id)
+       
         if(exist){
-            return res.status(400).json({message:"Sector already exists in this district"})
+            return res.status(403).json({message:`Sector ${name} already exists in ${district.name} district`})
         }
         if(district){
             const sector = await Sector.create({name, executive, population, districtId:district.id})
