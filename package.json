@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d dist --copy-files",
     "start_dev": "npm run build && nodemon  --require @babel/polyfill --require @babel/register src/app.js",
-    "migrate:undo": "npx sequelize-cli db:migrate:undo",
+    "dbmigrate:undo": "npx sequelize-cli db:migrate:undo",
     "dbmigrate": "npx sequelize-cli db:migrate",
     "status": "npx sequelize-cli db:migrate:status",
     "test": "echo \"Error: no test specified\" && exit 1"
