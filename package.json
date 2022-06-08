@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src -d dist --copy-files",
-    "start_dev": "npm run build && nodemon dist/app.js",
+    "start_dev": "npm run build && nodemon  --require @babel/polyfill --require @babel/register src/app.js",
     "undomigrate": "npx sequelize db:migrate:undo",
     "dbmigrate": "npx sequelize db:migrate",
     "status": "npx sequelize db:migrate:status",
@@ -24,7 +24,9 @@
   "dependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.12",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.17.12",
+    "@babel/register": "^7.17.7",
     "cors": "^2.8.5",
     "D": "^1.0.0",
     "dotenv": "^16.0.1",
