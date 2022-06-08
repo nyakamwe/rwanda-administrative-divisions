@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({Sector}) {
       // define association here
-      this.belongsTo(Sector, {foreignKey:'sectorId'})
+      this.belongsTo(Sector, {foreignKey:'sectorId', onDelete:'CASCADE'})
     }
     toJSON(){
       return {

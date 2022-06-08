@@ -1,0 +1,170 @@
+swagger: "2.0"
+info: 
+  title: "API for Administration divisions"
+  description : "API used for listing all the province, district, sectors, and cells. All data came 
+                from [National Institute of Statistics Rwanda (web).](https://www.statistics.gov.rw/) 
+                This API includes the total population for each sectors etc. and other information."
+  version: "1.0"  
+  contact:
+    email: "aimable.nyakamwe@yahoo.com"
+    url: "https://nyakamwe.github.io/my-brand-nyakamwe/UI/"
+    name: "nyakamwe"
+  license:
+    name: Apache 2.0
+    url: "http://apache.org/" 
+  servers:
+    -url: "http://localhost:3000/"
+    description: This is local server
+    -url: "https://administration-api.com"
+    description: This is local server
+schemes: [http,https]  
+
+paths:
+  /api/v1/provinces:
+    get: 
+      tags: [Provinces]
+      summary: It returns all provinces
+      description: Here you get all province's country
+      responses:
+        200:
+          description: Successful provinces returned!
+        404:
+          description: provinces not found!
+        500:
+          description: Internal Server error
+
+  /api/v1/provinces/{provinceUuid}:
+    get:
+      tags: [Provinces]
+      summary: It returns single province based on province uuid
+      description: Get single province with its related districts
+      parameters:
+        - name: provinceUuid
+          in: path
+          required: true
+          description: Province UUID
+          type: string
+      responses:
+        200:
+          description: Successfull  
+        404:
+          description: Province of that uuid is not found!
+        500:
+          description: Internal Server error        
+  /api/v1/province:
+    post:
+      tags: [Provinces]
+      summary: Add new province
+      description: You have to add new when all provinces is not available
+      produces:
+        - application/json
+      consumes: 
+        - application/json
+      parameters:
+      - in: body
+        name: province
+        schema: 
+          type: object
+          properties:
+            name:
+              type: string
+            governor:
+              type: string
+            total_district:
+              type: integer
+    responses:
+      201: 
+        descripion: Province added successful
+      400: 
+        description: province already exists
+      500: 
+        description: Internal Server error
+
+# District endpoints
+  /api/v1/districts:
+    get:
+      tags: [Districts]     
+      summary: Returns all districts.
+      description: Get all districts found in all provinces of Rwanda including kigali city. 
+      responses:
+        200:
+          description: Successful  
+
+  /api/v1/districts/{districtUuid}: 
+    get:
+      tags: [Districts]     
+      summary: Returns an individual district.
+      description: Get single district based on its UUID. 
+      parameters:
+      - name: districtUuid
+        in: path
+        required: true
+        description: District UUID
+        type: string
+      responses:
+        200:
+          description: Successful  
+        404:
+          description: District of that uuid is not found! 
+        500:
+          description: Internal Server error
+
+# Sector endpoints
+
+  /api/v1/sectors:
+    get:
+      tags: [Sectors]     
+      summary: Returns all sectors.
+      description: Get all sectors found in all districts of Rwanda. 
+      responses:
+        200:
+          description: Successful  
+
+  /api/v1/sectors/{sectorUuid}: 
+    get:
+      tags: [Sectors]     
+      summary: Returns an individual sector.
+      description: Get single sector based on its UUID. 
+      parameters:
+      - name: sectorUuid
+        in: path
+        required: true
+        description: Sector UUID
+        type: string
+      responses:
+        200:
+          description: Successful  
+        404:
+          description: Sector of that uuid is not found! 
+        500:
+          description: Internal Server error
+
+# Cell endpoints
+  /api/v1/cells:
+    get:
+      tags: [Cells]     
+      summary: Returns all cells.
+      description: Get all cells found in all sectors of Rwanda. 
+      responses:
+        200:
+          description: Successful  
+
+  /api/v1/cells/{cellUuid}: 
+    get:
+      tags: [Cells]     
+      summary: Returns an individual cell.
+      description: Get single cell based on its UUID. 
+      parameters:
+      - name: cellUuid
+        in: path
+        required: true
+        description: Cell UUID
+        type: string
+      responses:
+        200:
+          description: Successful  
+        404:
+          description: Cell of that uuid is not found! 
+        500:
+          description: Internal Server error
+  

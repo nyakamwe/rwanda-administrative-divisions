@@ -9,7 +9,7 @@ const addProvince = async(req, res)=>{
         // checking if sector exist or not
         const exist = await provinceExist(name)
         if(exist){
-            return res.status(400).json({message:"Province already exists in this country"})
+            return res.status(400).json({message:`Province ${name} already exists in this country`})
         }
         
         const province= await Province.create({name, governor, total_district})
@@ -18,7 +18,7 @@ const addProvince = async(req, res)=>{
         }
         return res.status(404).json({success:false, msg:"province not created!"})
     } catch (error) {
-        
+        return res.status(500).json({error:error.message})
     }
 }
 
@@ -63,12 +63,12 @@ const getAllProvinces = async(req, res)=>{
     try {
         const provinces = await Province.findAll({include: ['districts']})
         if(provinces){
-            return res.status(200).json({success:true, status:200, provinces})
+            return res.status(200).json({success:true, status:200, count: provinces.length, provinces})
         }
         return res.status(404).json({success:false, msg:"provinces not found!"})
 
     } catch (error) {
-        return res.status(400).json({error:error.message})
+        return res.status(500).json({error:error.message})
     }
     
 }

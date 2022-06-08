@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({District,Cell}) {
       // define association here
-      this.belongsTo(District, {foreignKey:'districtId', as:'district'})
-      this.hasMany(Cell, {foreignKey:'sectorId'})
+      this.belongsTo(District, {foreignKey:'districtId', as:'district', onDelete:'CASCADE'})
+      this.hasMany(Cell, {foreignKey:'sectorId', onDelete:'CASCADE'})
     }
     toJSON(){
       return {...this.get(), id:undefined, districtId:undefined}
