@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "build": "babel src -d dist --copy-files",
-    "start_dev": "npm run build && nodemon dist/app.js",
+    "start_dev": "npm run build && nodemon  --require @babel/polyfill --require @babel/register src/app.js",
+    "undomigrate": "npx sequelize db:migrate:undo",
+    "dbmigrate": "npx sequelize db:migrate",
+    "status": "npx sequelize db:migrate:status",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,13 +24,19 @@
   "dependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.17.12",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.17.12",
+    "@babel/register": "^7.17.7",
     "cors": "^2.8.5",
+    "D": "^1.0.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.19.1",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0",
+    "yamljs": "^0.3.0"
   }
 }

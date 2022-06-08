@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */ 
     static associate({Province, Sector}) {
       // define association here
-      this.belongsTo(Province, {foreignKey: 'provinceId', as:'province'})
-      this.hasMany(Sector, {foreignKey: 'districtId', as:'sectors'})
+      this.belongsTo(Province, {foreignKey: 'provinceId', as:'province', onDelete:'CASCADE'})
+      this.hasMany(Sector, {foreignKey: 'districtId', as:'sectors', onDelete:'CASCADE'})
     }
     // override toJSON method
     toJSON(){
